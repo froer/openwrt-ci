@@ -13,9 +13,9 @@
 # Uncomment a feed source
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 #echo 'src-git froer_Packages https://github.com/ofroer/ofroer_mod_Packages.git' >> feeds.conf.defaul
-#sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages' feeds.conf.default
-#sed -i '$a src-git small https://github.com/kenzok8/small' feeds.conf.default
-echo 'src-git NueXini_Packages https://github.com/NueXini/NueXini_Packages.git' >> feeds.conf.default
+sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages' feeds.conf.default
+sed -i '$a src-git small https://github.com/kenzok8/small' feeds.conf.default
+#echo 'src-git NueXini_Packages https://github.com/NueXini/NueXini_Packages.git' >> feeds.conf.default
 #git clone https://github.com/kenzok8/openwrt-packages  package/openwrt-packages
 #git clone https://github.com/kenzok8/small.git  package/openwrt-small
 #git clone https://github.com/kuoruan/openwrt-upx.git package/openwrt-upx
