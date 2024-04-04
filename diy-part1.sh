@@ -15,8 +15,6 @@
 #echo 'src-git froer_Packages https://github.com/ofroer/ofroer_mod_Packages.git' >> feeds.conf.defaul
 sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages' feeds.conf.default
 sed -i '$a src-git small https://github.com/kenzok8/small' feeds.conf.default
-rm -rf feeds/packages/lang/golang
-git clone https://github.com/kenzok8/golang feeds/packages/lang/golang
 #echo 'src-git NueXini_Packages https://github.com/NueXini/NueXini_Packages.git' >> feeds.conf.default
 #git clone https://github.com/kenzok8/openwrt-packages  package/openwrt-packages
 #git clone https://github.com/kenzok8/small.git  package/openwrt-small
