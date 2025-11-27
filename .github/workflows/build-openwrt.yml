@@ -76,21 +76,35 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
-    - name: Update feeds
+#    - name: Update feeds
+#      run: cd openwrt && ./scripts/feeds update -a
+
+#    - name: Install feeds
+#      run: cd openwrt && ./scripts/feeds install -a
+
+- name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
+
+    - name: Remove conflicting packages
+      run: |
+        cd openwrt
+        # 删除官方源中与肯佐源冲突的 golang 和其他包，防止 install 时报错
+        rm -rf feeds/packages/lang/golang
+        git clone https://github.com/kenzok8/golang feeds/packages/lang/golang
+        # 你可以在这里添加更多去重命令，通常 golang 是最大的冲突源
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
-    - name: Load custom configuration
-      run: |
-        [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-        chmod +x $DIY_P2_SH
-        cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH
-        rm -rf feeds/packages/lang/golang
-        git clone https://github.com/kenzok8/golang feeds/packages/lang/golang
+#    - name: Load custom configuration
+#      run: |
+#        [ -e files ] && mv files openwrt/files
+#        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+#        chmod +x $DIY_P2_SH
+#        cd openwrt
+#        $GITHUB_WORKSPACE/$DIY_P2_SH
+#        rm -rf feeds/packages/lang/golang
+#        git clone https://github.com/kenzok8/golang feeds/packages/lang/golang
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
