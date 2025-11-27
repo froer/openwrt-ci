@@ -82,7 +82,7 @@ jobs:
 #    - name: Install feeds
 #      run: cd openwrt && ./scripts/feeds install -a
 
-- name: Update feeds
+    - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
     - name: Fix conflicts and recursion
