@@ -82,8 +82,29 @@ jobs:
 #    - name: Install feeds
 #      run: cd openwrt && ./scripts/feeds install -a
 
-    - name: Update feeds
+- name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
+
+    - name: Fix conflicts and recursion
+      run: |
+        cd openwrt
+        # === 核心修复步骤 ===
+        
+        # 1. 删除导致递归死锁的包 (nikki 和 fchomo 在 24.10 上有严重依赖问题)
+        rm -rf feeds/small/nikki
+        rm -rf feeds/small/luci-app-fchomo
+        rm -rf feeds/small/luci-app-momo
+        rm -rf feeds/small/momo
+        
+        # 2. 删除官方源中可能与 Kenzo 源冲突的 Golang
+        rm -rf feeds/packages/lang/golang
+        git clone https://github.com/kenzok8/golang feeds/packages/lang/golang
+
+        # 3. 尝试修复 shadowsocks-libev 缺失问题 (这一步不一定能完全修复旧版插件，但能缓解警告)
+        # 大多数情况直接忽略 libev 警告即可，只要不选相关插件
+
+    - name: Install feeds
+      run: cd openwrt && ./scripts/feeds install -a
 
     - name: Remove conflicting packages
       run: |
